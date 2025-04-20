@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>teclado musical</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="teclado">
+        <div class="tecla-branca"
+        onclick="tocarSom('do')">dó</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('re')">ré</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('mi')">mi</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('fa')">fá</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('sol')">sol</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('la')">lá</div>
+        <div class="tecla-branca"
+        onclick="tocarSom('si')">si</div>
+
+        <div class="tecla-preta" style="left: 45px;" 
+        onclick="tocarSom('doS')">dó#</div>
+        <div class="tecla-preta" style="left: 105px;" 
+        onclick="tocarSom('reS')">ré#</div>
+        <div class="tecla-preta" style="left: 225px;" 
+        onclick="tocarSom('faS')">fá#</div>
+        <div class="tecla-preta" style="left: 285px;" 
+        onclick="tocarSom('solS')">sol#</div>
+        <div class="tecla-preta" style="left: 345px;" 
+        onclick="tocarSom('laS')">lá#</div>
+    </div>
+
+    <audio id="do" src="/notas/Do.mp3"></audio>
+    <audio id="re" src="/notas/Re.mp3"></audio>
+    <audio id="mi" src="/notas/Mi.mp3"></audio>
+    <audio id="fa" src="/notas/Fa.mp3"></audio>
+    <audio id="sol" src="/notas/Sol.mp3"></audio>
+    <audio id="la" src="/notas/La.mp3"></audio>
+    <audio id="si" src="/notas/Si.mp3"></audio>
+    <audio id="doS" src="/notas/DoS.mp3"></audio>
+    <audio id="reS" src="/notas/ReS.mp3"></audio>
+    <audio id="faS" src="/notas/FaS.mp3"></audio>
+    <audio id="solS" src="/notas/SolS.mp3"></audio>
+    <audio id="laS" src="/notas/LaS.mp3"></audio>
+
+   <script src="script.js"></script>
+</body>
+</html>

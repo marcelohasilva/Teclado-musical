@@ -1,0 +1,74 @@
+body{
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.teclado{
+    position: relative;
+    display: flex;
+}
+
+.tecla-branca{
+    width: 60px;
+    height: 250px;
+    background: white;
+    border: 1px solid#333;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    user-select: none;
+    
+}
+
+.tecla-preta{
+    width: 40px;
+    height: 160px;
+    background: black;
+    position: absolute;
+    z-index: 2;
+    /* margin-left: -1px; */
+    border-radius: 0 0 4px 4px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+.tecla-preta:hover{
+    background: #444;
+}
+.tecla-branca:hover{
+    background: #ccc;
+}
+
+.doS { left: 12%;}
+.reS { left: 27%;}
+.faS { left: 57%;}
+.solS { left: 72%;}
+.laS { left: 87%;}
+
+@media (max-width: 500px) {
+    .tecla-branca {
+        font-size: 4vw;
+    }
+
+    .tecla-preta {
+        font-size: 2.5vw;
+    }
+}
