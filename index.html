@@ -3,51 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>teclado musical</title>
+    <title>Teclado Musical Pro</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="teclado">
-        <div class="tecla-branca"
-        onclick="tocarSom('do')">dó</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('re')">ré</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('mi')">mi</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('fa')">fá</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('sol')">sol</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('la')">lá</div>
-        <div class="tecla-branca"
-        onclick="tocarSom('si')">si</div>
+    <main class="workstation">
+        <header class="top-bar">
+            <div class="brand">
+                <span class="brand-title">Teclado Musical Pro</span>
+                <span class="brand-sub">Performance Station</span>
+            </div>
+            <div class="top-actions">
+                <button id="startButton" class="primary">Ativar audio</button>
+                <span id="audioStatus" class="status">Pronto para tocar</span>
+            </div>
+        </header>
 
-        <div class="tecla-preta" style="left: 45px;" 
-        onclick="tocarSom('doS')">dó#</div>
-        <div class="tecla-preta" style="left: 105px;" 
-        onclick="tocarSom('reS')">ré#</div>
-        <div class="tecla-preta" style="left: 225px;" 
-        onclick="tocarSom('faS')">fá#</div>
-        <div class="tecla-preta" style="left: 285px;" 
-        onclick="tocarSom('solS')">sol#</div>
-        <div class="tecla-preta" style="left: 345px;" 
-        onclick="tocarSom('laS')">lá#</div>
-    </div>
+        <section class="metal-panel">
+            <div class="panel-row">
+                <div class="module">
+                    <h3>Master Volume</h3>
+                    <div class="knob"></div>
+                    <span class="module-label">Main Out</span>
+                </div>
+                <div class="module">
+                    <h3>Effect</h3>
+                    <div class="knob"></div>
+                    <span class="module-label">Reverb</span>
+                </div>
+                <div class="module">
+                    <h3>Filter</h3>
+                    <div class="knob"></div>
+                    <span class="module-label">Low Pass</span>
+                </div>
+                <div class="module wide">
+                    <h3>Performance</h3>
+                    <div class="mini-grid">
+                        <div class="mini"></div>
+                        <div class="mini"></div>
+                        <div class="mini"></div>
+                        <div class="mini"></div>
+                    </div>
+                    <span class="module-label">Macro Controls</span>
+                </div>
+            </div>
+            <div class="panel-row">
+                <div class="switch-bank">
+                    <span>Mode</span>
+                    <div class="switches">
+                        <button class="switch">Intro</button>
+                        <button class="switch">Fill</button>
+                        <button class="switch">Break</button>
+                        <button class="switch">Ending</button>
+                    </div>
+                </div>
+                <div class="display">
+                    <div class="display-line">Preset: Studio Grand</div>
+                    <div class="display-line">Tempo: 120 BPM</div>
+                </div>
+            </div>
+        </section>
 
-    <audio id="do" src="/notas/Do.mp3"></audio>
-    <audio id="re" src="/notas/Re.mp3"></audio>
-    <audio id="mi" src="/notas/Mi.mp3"></audio>
-    <audio id="fa" src="/notas/Fa.mp3"></audio>
-    <audio id="sol" src="/notas/Sol.mp3"></audio>
-    <audio id="la" src="/notas/La.mp3"></audio>
-    <audio id="si" src="/notas/Si.mp3"></audio>
-    <audio id="doS" src="/notas/DoS.mp3"></audio>
-    <audio id="reS" src="/notas/ReS.mp3"></audio>
-    <audio id="faS" src="/notas/FaS.mp3"></audio>
-    <audio id="solS" src="/notas/SolS.mp3"></audio>
-    <audio id="laS" src="/notas/LaS.mp3"></audio>
+        <section class="keyboard-panel">
+            <div class="keyboard-head">
+                <div class="control">
+                    <label for="instrument">Instrumento</label>
+                    <select id="instrument">
+                        <option value="poly">Polysynth</option>
+                        <option value="fm">FM Classic</option>
+                        <option value="mono">Mono Lead</option>
+                        <option value="am">AM Keys</option>
+                    </select>
+                </div>
+                <div class="control">
+                    <label for="octave">Oitava do teclado</label>
+                    <input id="octave" type="range" min="1" max="8" value="4">
+                    <span id="octaveValue">4</span>
+                </div>
+                <div class="control">
+                    <label for="octavesCount">Oitavas visiveis</label>
+                    <input id="octavesCount" type="range" min="1" max="8" value="8">
+                    <span id="octavesCountValue">8</span>
+                </div>
+                <div class="control">
+                    <label for="volume">Volume</label>
+                    <input id="volume" type="range" min="-30" max="0" value="-8">
+                </div>
+                <div class="control">
+                    <label for="sustain">Sustain</label>
+                    <input id="sustain" type="checkbox" checked>
+                </div>
+                <div class="control">
+                    <label for="reverb">Reverb</label>
+                    <input id="reverb" type="checkbox" checked>
+                </div>
+            </div>
 
-   <script src="script.js"></script>
+            <div class="keyboard-wrap">
+                <div class="piano" id="piano" aria-label="Teclado musical">
+                    <div id="keyboard"></div>
+                </div>
+            </div>
+
+            <div class="legend">
+                <span>Atalhos: A S D F G H J / W E T Y U</span>
+                <span>Use o mouse, toque, ou teclado.</span>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
