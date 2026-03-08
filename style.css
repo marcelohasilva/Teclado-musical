@@ -384,12 +384,22 @@ body {
     z-index: 3;
     pointer-events: auto;
     justify-self: start;
-    transform: translateX(calc((var(--white-key-width) + var(--key-gap)) / 2 - (var(--black-key-width) / 2) + 25px));
+    --black-shift: calc((var(--white-key-width) + var(--key-gap)) / 2 - (var(--black-key-width) / 2) + 25px);
+    transform: translateX(var(--black-shift));
+    transition: box-shadow 0.2s ease, background 0.2s ease;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
-.key:active,
-.key.is-active {
+.key.white:active,
+.key.white.is-active {
     transform: translateY(2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.key.black:active,
+.key.black.is-active {
+    transform: translateX(var(--black-shift)) !important;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
