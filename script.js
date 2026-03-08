@@ -79,7 +79,7 @@ function buildKeyboard(octaves) {
             button.dataset.note = fullNote;
             button.dataset.whiteIndex = `${whiteIndex}`;
             button.setAttribute("aria-label", fullNote);
-            button.textContent = noteName === "C" ? `C${octave}` : "";
+            button.textContent = fullNote;
             whiteKeysContainer.appendChild(button);
             whiteIndex += 1;
         });
