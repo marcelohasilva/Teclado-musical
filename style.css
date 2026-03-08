@@ -11,6 +11,12 @@
     --key-white: #f5f7fb;
     --key-black: #0d1117;
     --shadow: rgba(0, 0, 0, 0.5);
+    --white-key-width: clamp(20px, 3.2vw, 48px);
+    --white-key-height: clamp(120px, 16vw, 220px);
+    --black-key-width: clamp(12px, 2vw, 30px);
+    --black-key-height: clamp(70px, 10vw, 130px);
+    --key-gap: clamp(1px, 0.3vw, 4px);
+    --black-key-offset: clamp(-14px, 0vw, -0.5px);
 }
 
 * {
@@ -23,6 +29,7 @@ body {
     font-family: "Space Grotesk", "Spline Sans", sans-serif;
     color: var(--text);
     background: radial-gradient(circle at top, #222835, #0a0b10 60%, #050608);
+    overflow-x: hidden;
 }
 
 .workstation {
@@ -158,6 +165,7 @@ body {
     border: 3px solid #0b0e13;
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(0, 0, 0, 0.5);
     position: relative;
+    cursor: pointer;
 }
 
 .knob::after {
@@ -186,6 +194,7 @@ body {
     background: linear-gradient(145deg, #3a404a, #1c2027);
     border: 1px solid #0c0f14;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+    cursor: pointer;
 }
 
 .switch-bank {
@@ -210,6 +219,7 @@ body {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .display {
@@ -264,6 +274,7 @@ body {
 .control select,
 .control input[type="range"] {
     width: 100%;
+    cursor: pointer;
 }
 
 .control select {
@@ -282,6 +293,7 @@ body {
     width: 18px;
     height: 18px;
     accent-color: var(--accent);
+    cursor: pointer;
 }
 
 #octaveValue,
@@ -293,6 +305,10 @@ body {
 .keyboard-wrap {
     overflow-x: auto;
     padding-bottom: 10px;
+    width: 100%;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
 }
 
 .piano {
@@ -303,30 +319,32 @@ body {
     border: 1px solid #2b313a;
     box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     width: max-content;
-    min-height: 250px;
+    min-height: calc(var(--white-key-height) + 40px);
 }
 
 #keyboard {
-    display: flex;
-    gap: 0;
-}
-
-.octave {
     position: relative;
-    padding-right: 0;
+    width: max-content;
 }
 
-.white-keys {
-    display: flex;
-    gap: 4px;
+.white-keys-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--white-key-width);
+    column-gap: var(--key-gap);
+    width: max-content;
 }
 
-.black-keys {
+.black-keys-grid {
     position: absolute;
     left: 0;
-    top: 10px;
-    height: 150px;
-    width: 100%;
+    top: var(--black-key-offset);
+    height: var(--black-key-height);
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--white-key-width);
+    column-gap: var(--key-gap);
+    width: max-content;
     pointer-events: none;
 }
 
@@ -343,28 +361,30 @@ body {
 }
 
 .key.white {
-    width: 48px;
-    height: 210px;
+    width: var(--white-key-width);
+    height: var(--white-key-height);
     border-radius: 0 0 12px 12px;
     background: linear-gradient(180deg, #ffffff, #dce2ea);
     color: #111318;
     font-weight: 600;
     box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
-    font-size: 0.7rem;
+    font-size: clamp(0.5rem, 1vw, 0.7rem);
 }
 
 .key.black {
-    position: absolute;
-    width: 30px;
-    height: 130px;
+    position: relative;
+    width: var(--black-key-width);
+    height: var(--black-key-height);
     border-radius: 0 0 10px 10px;
     background: linear-gradient(180deg, #2a2f36, #0b0d12);
     color: #e8ecf2;
-    font-size: 0.6rem;
+    font-size: clamp(0.4rem, 0.9vw, 0.6rem);
     font-weight: 600;
     box-shadow: 0 10px 14px rgba(0, 0, 0, 0.5);
     z-index: 3;
     pointer-events: auto;
+    justify-self: start;
+    transform: translateX(calc((var(--white-key-width) + var(--key-gap)) / 2 - (var(--black-key-width) / 2) + 25px));
 }
 
 .key:active,
@@ -396,25 +416,16 @@ body {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .workstation {
+        width: 100%;
+        padding: 24px 16px 48px;
+    }
 }
 
 @media (max-width: 720px) {
     .module.wide {
         grid-column: span 1;
-    }
-
-    .key.white {
-        height: 185px;
-        width: 44px;
-    }
-
-    .key.black {
-        height: 115px;
-        width: 28px;
-    }
-
-    .black-keys {
-        height: 120px;
     }
 }
 
@@ -422,18 +433,21 @@ body {
     .workstation {
         padding: 24px 0 48px;
     }
+}
 
-    .key.white {
-        height: 165px;
-        width: 38px;
+@media (max-width: 900px) and (orientation: portrait) {
+    body {
+        overflow: hidden;
     }
 
-    .key.black {
-        height: 100px;
-        width: 24px;
-    }
-
-    .black-keys {
-        height: 108px;
+    .workstation {
+        transform: rotate(90deg);
+        transform-origin: top left;
+        width: 100vh;
+        height: 100vw;
+        position: absolute;
+        top: 0;
+        left: 100vw;
+        padding: 16px;
     }
 }

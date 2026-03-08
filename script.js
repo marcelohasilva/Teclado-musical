@@ -10,6 +10,8 @@ const sustainToggle = document.getElementById("sustain");
 const reverbToggle = document.getElementById("reverb");
 const piano = document.getElementById("piano");
 const keyboardContainer = document.getElementById("keyboard");
+const whiteKeysContainer = document.getElementById("whiteKeys");
+const blackKeysContainer = document.getElementById("blackKeys");
 
 let synth = null;
 let reverb = null;
@@ -65,68 +67,38 @@ const instrumentOptions = {
 };
 
 function buildKeyboard(octaves) {
-    keyboardContainer.innerHTML = "";
+    whiteKeysContainer.innerHTML = "";
+    blackKeysContainer.innerHTML = "";
 
+    let whiteIndex = 0;
     for (let octave = 1; octave <= octaves; octave += 1) {
-        const octaveBlock = document.createElement("div");
-        octaveBlock.className = "octave";
-
-        const whiteKeysContainer = document.createElement("div");
-        whiteKeysContainer.className = "white-keys";
-
-        const blackKeysContainer = document.createElement("div");
-        blackKeysContainer.className = "black-keys";
-
         WHITE_NOTES.forEach((noteName) => {
             const button = document.createElement("button");
             const fullNote = `${noteName}${octave}`;
             button.className = "key white";
             button.dataset.note = fullNote;
+            button.dataset.whiteIndex = `${whiteIndex}`;
             button.setAttribute("aria-label", fullNote);
             button.textContent = noteName === "C" ? `C${octave}` : "";
             whiteKeysContainer.appendChild(button);
+            whiteIndex += 1;
         });
 
         BLACK_NOTES.forEach((noteName, index) => {
             const button = document.createElement("button");
             const fullNote = `${noteName}${octave}`;
+            const leftIndex = (octave - 1) * 7 + BLACK_POSITIONS[index];
             button.className = "key black";
             button.dataset.note = fullNote;
-            button.dataset.between = `${BLACK_POSITIONS[index]}`;
+            button.style.gridColumn = `${leftIndex + 1}`;
             button.setAttribute("aria-label", fullNote);
             button.textContent = noteName;
             blackKeysContainer.appendChild(button);
         });
-
-        octaveBlock.appendChild(whiteKeysContainer);
-        octaveBlock.appendChild(blackKeysContainer);
-        keyboardContainer.appendChild(octaveBlock);
     }
 
     attachPointerHandlers();
-    requestAnimationFrame(positionBlackKeys);
-}
-function positionBlackKeys() {
-    const octaveBlocks = Array.from(keyboardContainer.querySelectorAll(".octave"));
-    octaveBlocks.forEach((block) => {
-        const whiteKeys = Array.from(block.querySelectorAll(".key.white"));
-        const blackKeys = Array.from(block.querySelectorAll(".key.black"));
-        if (whiteKeys.length === 0 || blackKeys.length === 0) {
-            return;
-        }
-        const blackWidth = parseFloat(getComputedStyle(blackKeys[0]).width) || 30;
-        const gapValue = getComputedStyle(block.querySelector(".white-keys")).columnGap;
-        const gap = parseFloat(gapValue) || 4;
-        blackKeys.forEach((key) => {
-            const leftIndex = parseInt(key.dataset.between, 10);
-            const leftKey = whiteKeys[leftIndex];
-            if (!leftKey) {
-                return;
-            }
-            const left = leftKey.offsetLeft + leftKey.offsetWidth - blackWidth / 2 + gap / 2;
-            key.style.left = `${left}px`;
-        });
-    });
+    requestAnimationFrame(() => {});
 }
 
 async function setupAudioChain() {
@@ -358,7 +330,6 @@ window.addEventListener("keyup", handleKeyUp);
 octaveValue.textContent = octaveSlider.value;
 octavesCountValue.textContent = octavesCountSlider.value;
 buildKeyboard(parseInt(octavesCountSlider.value, 10));
-window.addEventListener("resize", positionBlackKeys);
 
 function positionBlackKeys() {
     if (blackKeys.length === 0 || whiteKeys.length === 0) {
